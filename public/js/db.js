@@ -7,6 +7,7 @@ const dbName = 'BudgetDB',
 const request = window.indexedDB.open(dbName, 1);
 
 request.onsuccess = function (event) {
+    db = event.target.result;
     console.log(event, db)
 };
 
