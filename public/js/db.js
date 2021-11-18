@@ -1,31 +1,25 @@
 let outdb;
 let db;
 
-// Managing IndexDB
-const createDb = () =>{
-    if(window.indexedDB){
-        const request = window.indexedDB.open('budgetDB', 1);
-        request.onsuccess = (event) =>{
+const request = window.indexedDB.open('BudgetDB', 1);
 
-        }
+request.onsuccess = (event) =>{
 
-        request.onerror = (event) =>{
-            console.log(event)
-        }
+}
 
-        request.onupgradeneeded = (event) =>{
-            db = event.target.result;
-            const objectStoreTransaction = db.createObjectStore('BudgetStore',
-                {
-                    keyPath: 'id',
-                    autoIncrement: true
-                });
-            objectStoreTransaction.createIndex('transaction', 'transaction', {unique: false});
-        }
-    }else{
-        console.log('no support');
-    }
-};
+request.onerror = (event) =>{
+    console.log(event)
+}
+
+request.onupgradeneeded = (event) =>{
+    db = event.target.result;
+    const objectStoreTransaction = db.createObjectStore('BudgetStore',
+        {
+            keyPath: 'id',
+            autoIncrement: true
+        });
+}
+
 
 const saveRecord = (record) => {
     console.log('Save record invoked');
@@ -38,5 +32,3 @@ const saveRecord = (record) => {
     // Add record to your store with add method.
     store.add(record);
 };
-
-createDb()
