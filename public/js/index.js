@@ -112,6 +112,7 @@ function sendTransaction(isAdding) {
   populateTable();
   populateTotal();
   
+  saveRecord(transaction);
   // also send to server
   fetch("/api/transaction", {
     method: "POST",

@@ -1,34 +1,42 @@
 let outdb;
 let db;
 
-const request = window.indexedDB.open('BudgetDB', 1);
+const dbName = 'BudgetDB',
+        storeName = 'BudgetStore'
 
-request.onsuccess = (event) =>{
+const request = window.indexedDB.open(dbName, 1);
 
-}
+request.onsuccess = function (event) {
+    console.log(event, db)
+};
 
 request.onerror = (event) =>{
     console.log(event)
 }
 
-request.onupgradeneeded = (event) =>{
+request.onupgradeneeded = function (event) {
     db = event.target.result;
-    const objectStoreTransaction = db.createObjectStore('BudgetStore',
-        {
-            keyPath: 'id',
-            autoIncrement: true
-        });
-}
+
+    let objectStore = db.createObjectStore(storeName, 
+    {
+        keyPath: 'id',
+        autoIncrement: true
+    })
+
+    objectStore.createIndex('transaction', 'transaction', {unique: false})
+};
 
 
 const saveRecord = (record) => {
-    console.log('Save record invoked');
-    // Create a transaction on the BudgetStore db with readwrite access
-    const transaction = db.transaction(['BudgetStore'], 'readwrite');
+    const transactionAdd = db.transaction([storeName], 'readwrite')
+    const objectStore = transactionAdd.objectStore(storeName)
+
+    objectStore.add(record)
   
-    // Access your BudgetStore object store
-    const store = transaction.objectStore('BudgetStore');
-  
-    // Add record to your store with add method.
-    store.add(record);
+    transactionAdd.oncomplete = (event) =>{
+        console.log('Transaction Completed', event);
+    }
+    transactionAdd.onerror = (event) =>{
+        console.log('Transaction Error', event);
+    }
 };
