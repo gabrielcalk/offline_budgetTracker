@@ -1,5 +1,15 @@
+if ('serviceWorker' in navigator){
+    window.addEventListener('load', () =>{
+      navigator.serviceWorker.register('/sw.js',).then((registration) =>{
+        console.log('ServiceWorket Registration Successful', registration)
+      }, function (err){
+        console.log(err)
+      }
+      )
+    })
+  }
+
 const cacheItems = 'items_v1'
-const cacheData = 'budget_v1'
 
 // informations that will be on the cacheItems
 const resourcesToCache = [
@@ -8,6 +18,7 @@ const resourcesToCache = [
     "/styles.css",
     "/js/index.js",
     "/js/db.js",
+    "/sw.js",
     "/icons/icon-192x192.png",
     "/icons/icon-512x512.png"
 ];

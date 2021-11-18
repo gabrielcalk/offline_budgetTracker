@@ -1,4 +1,3 @@
-let outdb;
 let db;
 
 const dbName = 'BudgetDB',
