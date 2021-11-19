@@ -34,7 +34,17 @@ Gabriel Cavalcante Causin
 
 
 ## *Usage*
+1) Fill in the required information and then choose if you wanna "Add Funds" or "Subtract Funds"
+![image](https://user-images.githubusercontent.com/89816900/142514780-c06dffe9-5ea5-4eb9-94b2-f7f917fbea9d.png)
 
+2) To make sure that you can add transactions offline:
+- Right Click on The Page
+- Go to "Inspect"
+- Click on "NetWork
+- Click on the option "Offline":
+![image](https://user-images.githubusercontent.com/89816900/142515956-3fe7e9d0-4a5e-43ac-a667-81bcbf7d6fd0.png)
+
+Note that you can add transactions while offline.
 
 
 ## *Questions*
