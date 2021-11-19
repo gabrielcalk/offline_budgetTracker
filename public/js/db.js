@@ -1,13 +1,16 @@
 let db;
 
+// variables that contains the name of the db and the store
 const dbName = 'BudgetDB',
         storeName = 'BudgetStore'
 
+// openning database
 const request = window.indexedDB.open(dbName, 1);
+
 
 request.onsuccess = function (event) {
     db = event.target.result;
-
+// Checking if the navigator is online after the db has been created
     if (navigator.onLine) {
         console.log('Backend online! 🗄️');
         syncIndexdb();
@@ -18,6 +21,7 @@ request.onerror = (event) =>{
     console.log(event)
 }
 
+// Creating store and index
 request.onupgradeneeded = function (event) {
     db = event.target.result;
 
@@ -32,6 +36,7 @@ request.onupgradeneeded = function (event) {
 
 
 const saveRecord = (record) => {
+    // Saving the record when the navigator is offline
     const transactionAdd = db.transaction([storeName], 'readwrite')
     const objectStore = transactionAdd.objectStore(storeName)
 
@@ -45,11 +50,13 @@ const saveRecord = (record) => {
     }
 };
 
+// sync the indexDB with the mongoDB
 const syncIndexdb = () =>{
     let transactionGet = db.transaction([storeName], 'readwrite');
     const objectStore = transactionGet.objectStore(storeName);
     const getAll = objectStore.getAll();
 
+// after get all the data on indexdb, then post it using the router /api/transaction/bulk
     getAll.onsuccess = function (){
         if (getAll.result.length > 0){
             fetch('/api/transaction/bulk', {

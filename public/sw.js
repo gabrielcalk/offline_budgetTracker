@@ -1,5 +1,7 @@
+// Checking if the browser support the service worker
 if ('serviceWorker' in navigator){
     window.addEventListener('load', () =>{
+// Registering the service worker
       navigator.serviceWorker.register('/sw.js',).then((registration) =>{
         console.log('ServiceWorket Registration Successful', registration)
       }, function (err){
@@ -9,6 +11,7 @@ if ('serviceWorker' in navigator){
     })
 }
 
+// variables that contains the name of the variables
 var CACHE_NAME = "my-site-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
 
